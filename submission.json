@@ -1,0 +1,15 @@
+{
+  "status": "confirmed",
+  "hash": "0xe8b84676087e60c4b54607c06cc5a23ee01354135b1e40b43e60c4c8bfe692c4",
+  "blockNumber": "52830596",
+  "onChainClaimId": "3618",
+  "wallet": "0xd29c790466675153a50df7860b9efdb689a21cde",
+  "bounty": 1495,
+  "gasUsed": "1328674",
+  "executionFeeEth": "0.000007972044",
+  "url": "https://poidh.xyz/base/bounty/1495",
+  "l1FeeWei": "4531865142",
+  "totalFeeWei": "7976575865142",
+  "totalFeeEth": "0.000007976575865142",
+  "frontendClaimId": 8934
+}
