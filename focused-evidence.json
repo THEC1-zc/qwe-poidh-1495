@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-10-19T22:53:01Z",
+  "target_bounty": {
+    "url": "https://poidh.xyz/base/bounty/1495",
+    "chain": "base",
+    "chainId": 8453,
+    "frontendId": 1495,
+    "onChainId": 509
+  },
+  "source_commit": "bd3a3dbbae0143ef3e507b3b2b4ce9ba44a21de9",
+  "mcp_endpoint": "https://poidh.xyz/api/mcp",
+  "mcp_requests_made": 4,
+  "findings": {
+    "NOVEL-01": {
+      "title": "39-hex-character typo in POIDH_PROTOCOL_CONTRACTS misclassifies Ethereum Mainnet PoidhV3 contract as a normal user and pollutes claimant relatedUsers",
+      "reproduced": true,
+      "source_location": "src/app/account/[address]/data/route.ts:35-60",
+      "typo_key_in_map": "0xe731dfadbf20542e10d09d26fc71445c70d4232",
+      "typo_key_hex_length": 39,
+      "actual_mainnet_v3_contract": "0xe731dfadbff20542e10d09d26fc71445c70d4232",
+      "actual_contract_hex_length": 40,
+      "live_mainnet_v3_get_account": {
+        "http_status": 200,
+        "isError": false,
+        "profile": {
+          "address": "0xe731dfadbff20542e10d09d26fc71445c70d4232",
+          "accountType": "user",
+          "isProtocolContract": false,
+          "contractLabel": null,
+          "name": null,
+          "farcasterHandle": null,
+          "twitterHandle": null,
+          "pfpUrl": null,
+          "profileUrl": "https://poidh.xyz/account/0xe731dfadbff20542e10d09d26fc71445c70d4232",
+          "profileDataUrl": "https://poidh.xyz/account/0xe731dfadbff20542e10d09d26fc71445c70d4232/data"
+        },
+        "summary_subset": {
+          "nftsHeld": 183,
+          "relatedUsers": 129
+        }
+      },
+      "live_base_v3_control_get_account": {
+        "http_status": 200,
+        "isError": false,
+        "profile": {
+          "address": "0x5555fa783936c260f77385b4e153b9725fef1719",
+          "accountType": "protocol_contract",
+          "isProtocolContract": true,
+          "contractLabel": "poidh v3 core contract",
+          "name": null,
+          "farcasterHandle": null,
+          "twitterHandle": null,
+          "pfpUrl": null,
+          "profileUrl": null,
+          "profileDataUrl": null
+        },
+        "summary_subset": {
+          "nftsHeld": 3665,
+          "relatedUsers": 1009
+        }
+      },
+      "live_mainnet_claimant_pollution": {
+        "claimant_address": "0x5e4e5ea537ce7e79b8a0fc4f0cb520e9b8b5dae5",
+        "http_status": 200,
+        "polluted_relatedUsers_entries": [
+          {
+            "address": "0xe731dfadbff20542e10d09d26fc71445c70d4232",
+            "accountType": "user",
+            "isProtocolContract": false,
+            "contractLabel": null,
+            "name": null,
+            "farcasterHandle": null,
+            "twitterHandle": null,
+            "pfpUrl": null,
+            "profileUrl": "https://poidh.xyz/account/0xe731dfadbff20542e10d09d26fc71445c70d4232",
+            "profileDataUrl": "https://poidh.xyz/account/0xe731dfadbff20542e10d09d26fc71445c70d4232/data",
+            "relationships": [
+              "current_owner_of_profile_submitted_claim_nft"
+            ],
+            "relatedBountyUrls": [
+              "https://poidh.xyz/mainnet/bounty/39",
+              "https://poidh.xyz/mainnet/bounty/34",
+              "https://poidh.xyz/mainnet/bounty/21",
+              "https://poidh.xyz/mainnet/bounty/11"
+            ]
+          }
+        ]
+      }
+    },
+    "NOVEL-07": {
+      "title": "Missing uint256 upper bound in parseEthAmount allows prepare_create_bounty to emit unsendable >256-bit hex transaction values",
+      "reproduced": true,
+      "source_location": "src/mcp/transactions.ts:204-216, src/mcp/server.ts:313,346",
+      "input_amountEth": "99999999999999999999999999999999999999999999999999999999999999999",
+      "live_prepare_create_bounty": {
+        "http_status": 200,
+        "isError": false,
+        "transaction_value_hex": "0xd2d80db02aabd62bf50a3fa490c301900d6953169e1c7a1e7fffff21f494c589c0000",
+        "walletSendCalls_value_hex": "0xd2d80db02aabd62bf50a3fa490c301900d6953169e1c7a1e7fffff21f494c589c0000",
+        "value_bit_length": 276,
+        "uint256_max_bit_length": 256,
+        "exceeds_uint256_max": true
+      }
+    }
+  }
+}
